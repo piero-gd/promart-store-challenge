@@ -4,6 +4,7 @@ import type { Product, Category } from '../types';
 import ProductCard from '../components/ProductCard';
 import CategoryFilter from '../components/CategoryFilter';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -106,6 +107,7 @@ export default function HomePage() {
           </>
         )}
       </main>
+      <Footer />
     </div>
   );
 }

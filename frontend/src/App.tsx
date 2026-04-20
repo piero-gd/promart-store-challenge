@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export default function App() {
@@ -22,6 +23,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <CartPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/products/:id"
+          element={
+            <ProtectedRoute>
+              <ProductDetailPage />
             </ProtectedRoute>
           }
         />

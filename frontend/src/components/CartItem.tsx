@@ -1,3 +1,4 @@
+import { TrashIcon } from '@heroicons/react/24/outline';
 import type { CartItem as CartItemType } from '../types';
 import { useCartStore } from '../store/cartStore';
 
@@ -54,10 +55,11 @@ export default function CartItem({ item }: Props) {
 
           <button
             onClick={() => removeItem(product.id)}
-            className="text-xs text-red-400 hover:text-red-600 transition-colors ml-auto"
+            className="ml-auto p-1.5 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
             aria-label="Eliminar producto"
+            title="Eliminar"
           >
-            Eliminar
+            <TrashIcon className="w-4 h-4" />
           </button>
         </div>
       </div>

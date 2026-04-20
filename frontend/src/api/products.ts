@@ -10,3 +10,8 @@ export const getProductsByCategory = async (category: string): Promise<Product[]
   const { data } = await api.get<Product[]>(`/api/products/category/${encodeURIComponent(category)}`);
   return data;
 };
+
+export const getProductById = async (id: number): Promise<Product> => {
+  const { data } = await api.get<Product>(`/api/products/${id}`);
+  return data;
+};

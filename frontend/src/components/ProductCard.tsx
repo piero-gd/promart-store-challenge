@@ -1,25 +1,16 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import type { Product } from '../types';
-import { useCartStore } from '../store/cartStore';
 
 interface Props {
   product: Product;
 }
 
 export default function ProductCard({ product }: Props) {
-  const [quantity, setQuantity] = useState(1);
-  const [added, setAdded] = useState(false);
-  const addItem = useCartStore((s) => s.addItem);
-
-  const handleAdd = () => {
-    addItem(product, quantity);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
-    setQuantity(1);
-  };
-
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <Link
+      to={`/products/${product.id}`}
+      className="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+    >
       {/* Product Image */}
       <div className="flex items-center justify-center h-52 bg-gray-50 p-4">
         <img
@@ -63,47 +54,16 @@ export default function ProductCard({ product }: Props) {
           <span className="text-xs text-gray-400">({product.rating.count})</span>
         </div>
 
-        {/* Price */}
-        <p className="text-xl font-bold text-gray-900">
-          ${product.price.toFixed(2)}
-        </p>
-
-        {/* Quantity + Add button */}
-        <div className="flex items-center gap-2 mt-auto">
-          {/* Quantity selector */}
-          <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-            <button
-              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="px-2 py-1 text-gray-500 hover:bg-gray-100 transition-colors"
-              aria-label="Disminuir cantidad"
-            >
-              −
-            </button>
-            <span className="px-3 py-1 text-sm font-medium text-gray-700 min-w-[2rem] text-center">
-              {quantity}
-            </span>
-            <button
-              onClick={() => setQuantity((q) => q + 1)}
-              className="px-2 py-1 text-gray-500 hover:bg-gray-100 transition-colors"
-              aria-label="Aumentar cantidad"
-            >
-              +
-            </button>
-          </div>
-
-          {/* Add to cart */}
-          <button
-            onClick={handleAdd}
-            className={`flex-1 py-2 px-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
-              added
-                ? 'bg-green-500 text-white'
-                : 'bg-primary-600 hover:bg-primary-700 text-white'
-            }`}
-          >
-            {added ? '✓ Agregado' : 'Agregar'}
-          </button>
+        {/* Price + CTA */}
+        <div className="flex items-center justify-between mt-auto pt-1">
+          <p className="text-xl font-bold text-gray-900">
+            ${product.price.toFixed(2)}
+          </p>
+          <span className="text-xs font-medium text-primary-600 hover:text-primary-700">
+            Ver detalle →
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
