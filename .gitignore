@@ -1,0 +1,16 @@
+# ── Node / Frontend ──────────────────────────────────────────────────
+node_modules/
+dist/
+.env.local
+.env.production
+
+# ── .NET / Backend ────────────────────────────────────────────────────
+backend/bin/
+backend/obj/
+*.user
+
+# ── OS & IDEs ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+.idea/
