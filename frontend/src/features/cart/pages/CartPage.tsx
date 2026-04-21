@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import { ShoppingCartIcon, TrashIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Footer from '../../../components/Footer';
 import CartItemComponent from '../components/CartItem';
 import { useCart } from '../hooks/useCart';
 
 export default function CartPage() {
-  const { items, count, total, showClearConfirm, setShowClearConfirm, handleClearCart } = useCart();
+  const { items, count, total, showClearConfirm, setShowClearConfirm, isClosing, closeModal, handleClearCart } = useCart();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -108,21 +109,25 @@ export default function CartPage() {
       <Footer />
 
       {/* Confirmation modal — clear cart */}
-      {showClearConfirm && (
+      {showClearConfirm && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[200] flex items-center justify-center p-4"
           role="dialog"
           aria-modal="true"
           aria-labelledby="confirm-title"
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            onClick={() => setShowClearConfirm(false)}
+            className={`absolute inset-0 bg-black/40 backdrop-blur-sm ${
+              isClosing ? 'animate-backdrop-out' : 'animate-backdrop-in'
+            }`}
+            onClick={closeModal}
           />
 
           {/* Panel */}
-          <div className="relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 animate-in fade-in zoom-in-95 duration-150">
+          <div className={`relative bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 ${
+            isClosing ? 'animate-modal-out' : 'animate-modal-in'
+          }`}>
             <div className="flex items-center gap-3 mb-4">
               <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-50 flex items-center justify-center">
                 <ExclamationTriangleIcon className="w-5 h-5 text-red-500" />
@@ -135,7 +140,7 @@ export default function CartPage() {
 
             <div className="flex gap-3 justify-end mt-6">
               <button
-                onClick={() => setShowClearConfirm(false)}
+                onClick={closeModal}
                 className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 Cancelar
@@ -150,7 +155,7 @@ export default function CartPage() {
             </div>
           </div>
         </div>
-      )}
+      , document.body)}
     </div>
   );
 }

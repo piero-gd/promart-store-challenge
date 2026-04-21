@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import { useCartStore } from '../store';
 
+const MODAL_OUT_DURATION = 200;
+
 export function useCart() {
   const items = useCartStore((s) => s.items);
   const clearCart = useCartStore((s) => s.clearCart);
@@ -13,10 +15,19 @@ export function useCart() {
   );
 
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  const closeModal = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setShowClearConfirm(false);
+      setIsClosing(false);
+    }, MODAL_OUT_DURATION);
+  };
 
   const handleClearCart = () => {
     clearCart();
-    setShowClearConfirm(false);
+    closeModal();
     toast.success('Carrito vaciado');
   };
 
@@ -26,6 +37,8 @@ export function useCart() {
     total,
     showClearConfirm,
     setShowClearConfirm,
+    isClosing,
+    closeModal,
     handleClearCart,
   };
 }
