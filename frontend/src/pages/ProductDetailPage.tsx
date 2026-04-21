@@ -109,7 +109,7 @@ export default function ProductDetailPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-6">
 
         {/* ── Loading skeleton ── */}
         {loading && (
@@ -270,7 +270,7 @@ export default function ProductDetailPage() {
                   {/* Quantity label + selector */}
                   <div className="space-y-2">
                     <p className="text-sm font-semibold text-gray-700">Cantidad</p>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden">
                         <button
                           onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -290,13 +290,8 @@ export default function ProductDetailPage() {
                           +
                         </button>
                       </div>
-                      {quantity > 1 && (
-                        <span className="text-sm text-gray-400">
-                          Subtotal: <span className="font-semibold text-gray-700">${(product.price * quantity).toFixed(2)}</span>
-                        </span>
-                      )}
 
-                      {/* Add to cart inline */}
+                      {/* Add to cart — shares row with quantity */}
                       <button
                         onClick={handleAddToCart}
                         className={`flex-1 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
@@ -318,6 +313,13 @@ export default function ProductDetailPage() {
                         )}
                       </button>
                     </div>
+
+                    {/* Subtotal — only visible when qty > 1, below the row */}
+                    {quantity > 1 && (
+                      <p className="text-sm text-gray-400 pl-1">
+                        Subtotal: <span className="font-semibold text-gray-700">${(product.price * quantity).toFixed(2)}</span>
+                      </p>
+                    )}
                   </div>
 
                   {/* Guarantees */}

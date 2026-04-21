@@ -8,15 +8,27 @@ export default {
     extend: {
       colors: {
         primary: {
-          50:  '#eef2ff',
-          100: '#e0e7ff',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
+          50:  '#fff5e6',
+          100: '#ffddb3',
+          500: '#ff9900',
+          600: '#ff8000',
+          700: '#cc6600',
         },
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.scrollbar-hide::-webkit-scrollbar': {
+          'display': 'none',
+        },
+      });
+    },
+  ],
 }
 

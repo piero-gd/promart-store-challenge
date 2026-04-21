@@ -40,7 +40,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8">
         {/* Page header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Nuestros Productos</h1>
@@ -57,16 +57,15 @@ export default function HomePage() {
 
         {/* Loading skeleton */}
         {loading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-pulse">
-                <div className="h-52 bg-gray-100" />
-                <div className="p-4 space-y-3">
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-pulse flex flex-row sm:flex-col">
+                <div className="flex-shrink-0 w-28 sm:w-auto sm:h-52 bg-gray-100" />
+                <div className="flex-1 p-3 sm:p-4 space-y-3">
                   <div className="h-3 bg-gray-100 rounded w-1/3" />
                   <div className="h-4 bg-gray-100 rounded w-full" />
                   <div className="h-4 bg-gray-100 rounded w-4/5" />
                   <div className="h-6 bg-gray-100 rounded w-1/4" />
-                  <div className="h-10 bg-gray-100 rounded-lg" />
                 </div>
               </div>
             ))}
@@ -99,7 +98,7 @@ export default function HomePage() {
             <p className="text-sm text-gray-400 mb-4">
               {products.length} producto{products.length !== 1 ? 's' : ''} encontrado{products.length !== 1 ? 's' : ''}
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
               {products.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
