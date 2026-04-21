@@ -1,5 +1,5 @@
-import type { Category } from '../types';
-import { CATEGORIES } from '../types';
+import type { Category } from '../../../types';
+import { CATEGORIES } from '../../../types';
 
 interface Props {
   selected: Category;

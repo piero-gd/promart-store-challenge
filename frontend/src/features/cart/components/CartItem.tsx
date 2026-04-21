@@ -1,6 +1,6 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
-import type { CartItem as CartItemType } from '../types';
-import { useCartStore } from '../store/cartStore';
+import type { CartItem as CartItemType } from '../../../types';
+import { useCartStore } from '../store';
 
 interface Props {
   item: CartItemType;

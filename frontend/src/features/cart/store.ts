@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { CartItem, Product } from '../types';
+import type { CartItem, Product } from '../../types';
 
 interface CartState {
   items: CartItem[];
@@ -59,6 +59,6 @@ export const useCartStore = create<CartState>()(
       totalPrice: () =>
         get().items.reduce((sum, i) => sum + i.product.price * i.quantity, 0),
     }),
-    { name: 'promart-cart' } // persiste en localStorage
+    { name: 'promart-cart' }
   )
 );

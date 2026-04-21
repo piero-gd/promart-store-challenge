@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getProducts, getProductsByCategory } from '../api/products';
-import type { Product, Category } from '../types';
-import { CATEGORIES } from '../types';
+import { getProducts, getProductsByCategory } from '../api';
+import type { Product, Category } from '../../../types';
+import { CATEGORIES } from '../../../types';
 import ProductCard from '../components/ProductCard';
 import CategoryFilter from '../components/CategoryFilter';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
 
 export default function HomePage() {
   const [searchParams] = useSearchParams();
@@ -49,7 +49,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-8">
         {/* Page header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Nuestros Productos</h1>

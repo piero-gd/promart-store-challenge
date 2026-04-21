@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCartIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
-import { useCartStore } from '../store/cartStore';
+import { useCartStore } from '../features/cart/store';
 
 export default function Navbar() {
   const navigate = useNavigate();

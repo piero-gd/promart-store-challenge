@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCartIcon, TrashIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
 import CartItemComponent from '../components/CartItem';
-import { useCartStore } from '../store/cartStore';
+import { useCartStore } from '../store';
 
 export default function CartPage() {
   const { items, clearCart, totalItems, totalPrice } = useCartStore();
@@ -21,7 +21,7 @@ export default function CartPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-6 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>

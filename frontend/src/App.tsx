@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
-import HomePage from './pages/HomePage';
-import CartPage from './pages/CartPage';
-import ProductDetailPage from './pages/ProductDetailPage';
+import LoginPage from './features/auth/pages/LoginPage';
+import HomePage from './features/products/pages/HomePage';
+import CartPage from './features/cart/pages/CartPage';
+import ProductDetailPage from './features/products/pages/ProductDetailPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 

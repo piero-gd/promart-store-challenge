@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
-import type { Product } from '../types';
+import type { Product } from '../../../types';
 
 interface Props {
   product: Product;
@@ -26,7 +26,6 @@ export default function ProductCard({ product }: Props) {
         flex flex-row sm:flex-col"
     >
       {/* ── Image ── */}
-      {/* Mobile: fixed-width square on the left | Desktop: full-width top */}
       <div className="
         flex-shrink-0 flex items-center justify-center bg-gray-50
         w-28 h-auto sm:w-auto sm:h-52

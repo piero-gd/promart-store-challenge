@@ -13,11 +13,11 @@ import {
   BuildingStorefrontIcon,
 } from '@heroicons/react/24/outline';
 import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
-import { getProductById, getProductsByCategory } from '../api/products';
-import { useCartStore } from '../store/cartStore';
-import type { Product } from '../types';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import { getProductById, getProductsByCategory } from '../api';
+import { useCartStore } from '../../cart/store';
+import type { Product } from '../../../types';
+import Navbar from '../../../components/Navbar';
+import Footer from '../../../components/Footer';
 
 // ─── Star Rating ──────────────────────────────────────────────────────────────
 function StarRating({ rate, count }: { rate: number; count: number }) {
@@ -109,7 +109,7 @@ export default function ProductDetailPage() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-6">
 
         {/* ── Loading skeleton ── */}
         {loading && (
@@ -291,7 +291,7 @@ export default function ProductDetailPage() {
                         </button>
                       </div>
 
-                      {/* Add to cart — shares row with quantity */}
+                      {/* Add to cart */}
                       <button
                         onClick={handleAddToCart}
                         className={`flex-1 py-2.5 rounded-xl font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
@@ -314,7 +314,7 @@ export default function ProductDetailPage() {
                       </button>
                     </div>
 
-                    {/* Subtotal — only visible when qty > 1, below the row */}
+                    {/* Subtotal — only visible when qty > 1 */}
                     {quantity > 1 && (
                       <p className="text-sm text-gray-400 pl-1">
                         Subtotal: <span className="font-semibold text-gray-700">${(product.price * quantity).toFixed(2)}</span>
@@ -391,24 +391,21 @@ export default function ProductDetailPage() {
               <div className="p-6">
                 {activeTab === 'description' && (
                   <div className="space-y-6">
-                    {/* Texto de descripción */}
                     <p className="text-sm text-gray-600 leading-relaxed">
                       {product.description}
                     </p>
-
-                    {/* Grilla de datos clave */}
                     <div className="border-t border-gray-100 pt-5">
                       <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
                         Información del producto
                       </h4>
                       <div className="grid sm:grid-cols-2 gap-x-8 gap-y-0 divide-y divide-gray-50">
                         {[
-                          { label: 'Categoría',     value: product.category },
-                          { label: 'Calificación',  value: `${product.rating.rate} / 5 (${product.rating.count} reseñas)` },
-                          { label: 'Precio',        value: `$${product.price.toFixed(2)}` },
-                          { label: 'Disponibilidad',value: 'En stock' },
-                          { label: 'Envío',         value: 'Gratis en compras mayores a $50' },
-                          { label: 'Garantía',      value: '12 meses contra defectos de fabricación' },
+                          { label: 'Categoría',      value: product.category },
+                          { label: 'Calificación',   value: `${product.rating.rate} / 5 (${product.rating.count} reseñas)` },
+                          { label: 'Precio',         value: `$${product.price.toFixed(2)}` },
+                          { label: 'Disponibilidad', value: 'En stock' },
+                          { label: 'Envío',          value: 'Gratis en compras mayores a $50' },
+                          { label: 'Garantía',       value: '12 meses contra defectos de fabricación' },
                         ].map(({ label, value }) => (
                           <div key={label} className="flex items-center justify-between py-2.5 gap-4">
                             <span className="text-xs font-medium text-gray-400 shrink-0">{label}</span>
