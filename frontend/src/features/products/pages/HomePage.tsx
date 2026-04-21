@@ -1,5 +1,4 @@
 import { useProducts } from '../hooks/useProducts';
-import type { Category } from '../../../types';
 import ProductCard from '../components/ProductCard';
 import CategoryFilter from '../components/CategoryFilter';
 import Footer from '../../../components/Footer';
