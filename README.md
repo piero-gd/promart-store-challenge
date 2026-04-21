@@ -1,8 +1,8 @@
-# Promart Store 🛒
+# Promart Store
 
 Prototipo de e-commerce desarrollado como reto técnico. Permite iniciar sesión, visualizar productos por categoría y gestionar un carrito de compras.
 
-## 🔗 Demo en producción
+## Demo en producción
 
 | | URL |
 |---|---|
@@ -115,12 +115,12 @@ npm run dev
 
 ## Endpoints de la API
 
-| Método | Ruta                                 | Auth | Descripción               |
-|--------|--------------------------------------|------|---------------------------|
-| POST   | `/api/auth/login`                    | ❌   | Iniciar sesión → JWT      |
-| GET    | `/api/products`                      | ✅   | Listar todos los productos |
-| GET    | `/api/products/category/{category}`  | ✅   | Filtrar por categoría      |
-| GET    | `/api/products/{id}`                 | ✅   | Obtener producto por ID    |
+| Método | Ruta                                 | Auth        | Descripción                |
+|--------|--------------------------------------|-------------|----------------------------|
+| POST   | `/api/auth/login`                    | No requiere | Iniciar sesión → JWT       |
+| GET    | `/api/products`                      | Requiere    | Listar todos los productos |
+| GET    | `/api/products/category/{category}`  | Requiere    | Filtrar por categoría      |
+| GET    | `/api/products/{id}`                 | Requiere    | Obtener producto por ID    |
 
 ### Categorías disponibles
 
