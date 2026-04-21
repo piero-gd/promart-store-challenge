@@ -15,7 +15,6 @@ import { useProductDetail } from '../hooks/useProductDetail';
 import StarRating from '../components/StarRating';
 import SuggestedCard from '../components/SuggestedCard';
 import { getCategoryLabel } from '../../../types';
-import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 
 export default function ProductDetailPage() {
@@ -40,7 +39,6 @@ export default function ProductDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
 
       <main className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-6">
 
@@ -109,12 +107,16 @@ export default function ProductDetailPage() {
                 <div className="lg:w-[480px] flex-shrink-0 p-6 lg:p-8 flex flex-col gap-4 lg:border-r border-gray-100">
                   {/* Main image */}
                   <div className="relative bg-gray-50 rounded-2xl overflow-hidden group" style={{ aspectRatio: '1 / 1' }}>
-                    <img
-                      key={currentIndex}
-                      src={images[currentIndex]}
-                      alt={`${product.title} - imagen ${currentIndex + 1}`}
-                      className="w-full h-full object-contain p-8 mix-blend-multiply"
-                    />
+                    {images.map((src, i) => (
+                      <img
+                        key={i}
+                        src={src}
+                        alt={i === currentIndex ? `${product.title} - imagen ${i + 1}` : ''}
+                        className={`absolute inset-0 w-full h-full object-contain p-8 mix-blend-multiply transition-opacity duration-300 ease-in-out ${
+                          i === currentIndex ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                        }`}
+                      />
+                    ))}
                     {/* Zoom icon */}
                     <button className="absolute top-3 right-3 w-8 h-8 bg-white rounded-full shadow flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <MagnifyingGlassPlusIcon className="w-4 h-4 text-gray-500" />

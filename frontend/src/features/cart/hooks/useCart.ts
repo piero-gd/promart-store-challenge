@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 import { useCartStore } from '../store';
 
 export function useCart() {
@@ -16,6 +17,7 @@ export function useCart() {
   const handleClearCart = () => {
     clearCart();
     setShowClearConfirm(false);
+    toast.success('Carrito vaciado');
   };
 
   return {

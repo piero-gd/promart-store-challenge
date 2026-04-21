@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import { getProducts, getProductsByCategory } from '../api';
 import type { Product, Category } from '../../../types';
 import { CATEGORIES } from '../../../types';
@@ -29,6 +30,7 @@ export function useProducts() {
       setProducts(data);
     } catch {
       setError('No se pudieron cargar los productos. Intenta de nuevo.');
+      toast.error('Error al cargar los productos. Verifica tu conexión.');
     } finally {
       setLoading(false);
     }

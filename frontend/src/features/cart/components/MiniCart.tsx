@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { XMarkIcon, ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { toast } from 'sonner';
 import { useCartStore } from '../store';
 import { getCategoryLabel } from '../../../types';
 
@@ -140,7 +141,10 @@ export default function MiniCart({ open, onClose }: Props) {
 
                   {/* Remove */}
                   <button
-                    onClick={() => removeItem(product.id)}
+                    onClick={() => {
+                      removeItem(product.id);
+                      toast.success('Producto eliminado del carrito');
+                    }}
                     className="flex-shrink-0 p-1.5 text-gray-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
                     aria-label={`Eliminar ${product.title}`}
                   >

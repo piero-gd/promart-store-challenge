@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import { getProductById, getProductsByCategory } from '../api';
 import { useCartStore } from '../../cart/store';
 import type { Product } from '../../../types';
@@ -35,7 +36,10 @@ export function useProductDetail() {
           setSuggested(all.filter((x) => x.id !== p.id).slice(0, 6))
         );
       })
-      .catch(() => setError('No se pudo cargar el producto.'))
+      .catch(() => {
+        setError('No se pudo cargar el producto.');
+        toast.error('No se pudo cargar el producto. Intenta de nuevo.');
+      })
       .finally(() => setLoading(false));
   }, [id]);
 
@@ -49,6 +53,9 @@ export function useProductDetail() {
     addItem(product, quantity);
     setAdded(true);
     setTimeout(() => setAdded(false), 2500);
+    toast.success(`"${product.title}" agregado al carrito`, {
+      description: `${quantity} ${quantity === 1 ? 'unidad' : 'unidades'} · $${(product.price * quantity).toFixed(2)}`,
+    });
   };
 
   return {

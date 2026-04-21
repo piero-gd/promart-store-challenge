@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ShoppingCartIcon, TrashIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import CartItemComponent from '../components/CartItem';
 import { useCart } from '../hooks/useCart';
@@ -10,7 +9,6 @@ export default function CartPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar />
 
       <main className="max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 py-8">
         {/* Header */}
