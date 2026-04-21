@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import type { Product } from '../../../types';
+import { getCategoryLabel } from '../../../types';
 
 interface Props {
   product: Product;
@@ -42,8 +43,8 @@ export default function ProductCard({ product }: Props) {
       {/* ── Content ── */}
       <div className="flex flex-col flex-1 p-3 sm:p-4 gap-2 sm:gap-3 min-w-0">
         {/* Category badge */}
-        <span className="text-xs font-medium text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full self-start capitalize">
-          {product.category}
+        <span className="text-xs font-medium text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full self-start">
+          {getCategoryLabel(product.category)}
         </span>
 
         {/* Title */}

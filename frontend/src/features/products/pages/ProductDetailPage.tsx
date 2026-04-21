@@ -14,6 +14,7 @@ import {
 import { useProductDetail } from '../hooks/useProductDetail';
 import StarRating from '../components/StarRating';
 import SuggestedCard from '../components/SuggestedCard';
+import { getCategoryLabel } from '../../../types';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 
@@ -332,7 +333,7 @@ export default function ProductDetailPage() {
                       </h4>
                       <div className="grid sm:grid-cols-2 gap-x-8 gap-y-0 divide-y divide-gray-50">
                         {[
-                          { label: 'Categoría',      value: product.category },
+                          { label: 'Categoría',      value: getCategoryLabel(product.category) },
                           { label: 'Calificación',   value: `${product.rating.rate} / 5 (${product.rating.count} reseñas)` },
                           { label: 'Precio',         value: `$${product.price.toFixed(2)}` },
                           { label: 'Disponibilidad', value: 'En stock' },

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Product } from '../../../types';
+import { getCategoryLabel } from '../../../types';
 
 interface Props {
   product: Product;
@@ -20,7 +21,7 @@ export default function SuggestedCard({ product }: Props) {
         />
       </div>
       <div className="p-3 space-y-1">
-        <p className="text-xs text-gray-500 truncate capitalize">{product.category}</p>
+        <p className="text-xs text-gray-500 truncate">{getCategoryLabel(product.category)}</p>
         <p className="text-sm font-semibold text-gray-800 line-clamp-2 leading-snug">{product.title}</p>
         <p className="text-sm font-bold text-primary-600">${product.price.toFixed(2)}</p>
       </div>

@@ -1,5 +1,6 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import type { CartItem as CartItemType } from '../../../types';
+import { getCategoryLabel } from '../../../types';
 import { useCartStore } from '../store';
 
 interface Props {
@@ -26,7 +27,7 @@ export default function CartItem({ item }: Props) {
         <p className="text-sm font-semibold text-gray-800 line-clamp-2 leading-snug">
           {product.title}
         </p>
-        <p className="text-xs text-gray-400 mt-0.5 capitalize">{product.category}</p>
+        <p className="text-xs text-gray-400 mt-0.5">{getCategoryLabel(product.category)}</p>
         <p className="text-sm font-bold text-primary-600 mt-1">
           ${product.price.toFixed(2)} c/u
         </p>

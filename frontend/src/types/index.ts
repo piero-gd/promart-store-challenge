@@ -52,3 +52,8 @@ export const CATEGORIES: { label: string; value: Category }[] = [
   { label: 'Ropa Hombre', value: "men's clothing" },
   { label: 'Ropa Mujer', value: "women's clothing" },
 ];
+
+/** Devuelve el label en español para un valor de categoría del API. */
+export function getCategoryLabel(value: string): string {
+  return CATEGORIES.find((c) => c.value === value)?.label ?? value;
+}
