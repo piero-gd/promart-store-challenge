@@ -1,21 +1,12 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCartIcon, TrashIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import CartItemComponent from '../components/CartItem';
-import { useCartStore } from '../store';
+import { useCart } from '../hooks/useCart';
 
 export default function CartPage() {
-  const { items, clearCart, totalItems, totalPrice } = useCartStore();
-  const count = totalItems();
-  const total = totalPrice();
-  const [showClearConfirm, setShowClearConfirm] = useState(false);
-
-  function handleClearCart() {
-    clearCart();
-    setShowClearConfirm(false);
-  }
+  const { items, count, total, showClearConfirm, setShowClearConfirm, handleClearCart } = useCart();
 
   return (
     <div className="min-h-screen bg-gray-50">

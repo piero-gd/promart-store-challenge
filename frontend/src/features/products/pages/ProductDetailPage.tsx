@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -12,98 +11,31 @@ import {
   TagIcon,
   BuildingStorefrontIcon,
 } from '@heroicons/react/24/outline';
-import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
-import { getProductById, getProductsByCategory } from '../api';
-import { useCartStore } from '../../cart/store';
-import type { Product } from '../../../types';
+import { useProductDetail } from '../hooks/useProductDetail';
+import StarRating from '../components/StarRating';
+import SuggestedCard from '../components/SuggestedCard';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 
-// ─── Star Rating ──────────────────────────────────────────────────────────────
-function StarRating({ rate, count }: { rate: number; count: number }) {
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex gap-0.5">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <StarSolid
-            key={i}
-            className={`w-4 h-4 ${i < Math.round(rate) ? 'text-yellow-400' : 'text-gray-200'}`}
-          />
-        ))}
-      </div>
-      <span className="text-sm font-medium text-gray-700">{rate.toFixed(1)}</span>
-      <span className="text-sm text-gray-400">({count} reseñas)</span>
-    </div>
-  );
-}
-
-// ─── Suggested Product Card ───────────────────────────────────────────────────
-function SuggestedCard({ product }: { product: Product }) {
-  return (
-    <Link
-      to={`/products/${product.id}`}
-      className="flex-shrink-0 w-44 bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
-    >
-      <div className="h-40 bg-gray-50 flex items-center justify-center p-3">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="max-h-full max-w-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
-          loading="lazy"
-        />
-      </div>
-      <div className="p-3 space-y-1">
-        <p className="text-xs text-gray-500 truncate capitalize">{product.category}</p>
-        <p className="text-sm font-semibold text-gray-800 line-clamp-2 leading-snug">{product.title}</p>
-        <p className="text-sm font-bold text-primary-600">${product.price.toFixed(2)}</p>
-      </div>
-    </Link>
-  );
-}
-
-// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function ProductDetailPage() {
-  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-
-  const [product, setProduct] = useState<Product | null>(null);
-  const [suggested, setSuggested] = useState<Product[]>([]);
-  const [quantity, setQuantity] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [added, setAdded] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [activeTab, setActiveTab] = useState<'description' | 'specifications'>('description');
-
-  const addItem = useCartStore((s) => s.addItem);
-
-  useEffect(() => {
-    if (!id) return;
-    setLoading(true);
-    setCurrentIndex(0);
-    setQuantity(1);
-    setSuggested([]);
-    getProductById(Number(id))
-      .then((p) => {
-        setProduct(p);
-        return getProductsByCategory(p.category).then((all) =>
-          setSuggested(all.filter((x) => x.id !== p.id).slice(0, 6))
-        );
-      })
-      .catch(() => setError('No se pudo cargar el producto.'))
-      .finally(() => setLoading(false));
-  }, [id]);
-
-  const handleAddToCart = () => {
-    if (!product) return;
-    addItem(product, quantity);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2500);
-  };
-
-  const images = product?.images?.length ? product.images : product ? [product.image] : [];
-  const prev = () => setCurrentIndex((i) => (i - 1 + images.length) % images.length);
-  const next = () => setCurrentIndex((i) => (i + 1) % images.length);
+  const {
+    product,
+    suggested,
+    quantity,
+    setQuantity,
+    loading,
+    error,
+    added,
+    images,
+    currentIndex,
+    setCurrentIndex,
+    prev,
+    next,
+    activeTab,
+    setActiveTab,
+    handleAddToCart,
+  } = useProductDetail();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -418,7 +350,7 @@ export default function ProductDetailPage() {
                 )}
                 {activeTab === 'specifications' && (
                   <p className="text-sm text-gray-600 leading-relaxed whitespace-pre-line">
-                    {product.specifications}
+                    {product.specifications ?? 'Sin especificaciones disponibles.'}
                   </p>
                 )}
               </div>

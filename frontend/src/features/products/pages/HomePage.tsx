@@ -1,49 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { getProducts, getProductsByCategory } from '../api';
-import type { Product, Category } from '../../../types';
-import { CATEGORIES } from '../../../types';
+import { useProducts } from '../hooks/useProducts';
+import type { Category } from '../../../types';
 import ProductCard from '../components/ProductCard';
 import CategoryFilter from '../components/CategoryFilter';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 
 export default function HomePage() {
-  const [searchParams] = useSearchParams();
-  const initialCategory = (): Category => {
-    const param = searchParams.get('category');
-    const valid = CATEGORIES.map((c) => c.value);
-    return valid.includes(param as Category) ? (param as Category) : 'all';
-  };
-
-  const [products, setProducts] = useState<Product[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<Category>(initialCategory);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  const fetchProducts = useCallback(async (category: Category) => {
-    setLoading(true);
-    setError('');
-    try {
-      const data =
-        category === 'all'
-          ? await getProducts()
-          : await getProductsByCategory(category);
-      setProducts(data);
-    } catch {
-      setError('No se pudieron cargar los productos. Intenta de nuevo.');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchProducts(selectedCategory);
-  }, [selectedCategory, fetchProducts]);
-
-  const handleCategoryChange = (category: Category) => {
-    setSelectedCategory(category);
-  };
+  const { products, selectedCategory, loading, error, handleCategoryChange, retry } = useProducts();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -86,7 +49,7 @@ export default function HomePage() {
           <div className="text-center py-16">
             <p className="text-red-500 text-lg">{error}</p>
             <button
-              onClick={() => fetchProducts(selectedCategory)}
+              onClick={retry}
               className="mt-4 px-6 py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors"
             >
               Reintentar
