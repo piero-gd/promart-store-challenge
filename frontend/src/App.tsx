@@ -4,10 +4,12 @@ import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import ScrollToTop from './components/ScrollToTop';
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route

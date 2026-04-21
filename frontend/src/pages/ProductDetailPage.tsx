@@ -163,7 +163,7 @@ export default function ProductDetailPage() {
             <nav className="flex items-center gap-1.5 text-sm text-gray-400">
               <Link to="/" className="hover:text-primary-600 transition-colors">Inicio</Link>
               <ChevronRightIcon className="w-3 h-3" />
-              <button onClick={() => navigate('/')} className="hover:text-primary-600 transition-colors capitalize">{product.category}</button>
+              <button onClick={() => navigate(`/?category=${encodeURIComponent(product.category)}`)} className="hover:text-primary-600 transition-colors capitalize">{product.category}</button>
               <ChevronRightIcon className="w-3 h-3" />
               <span className="text-gray-600 font-medium truncate max-w-[200px]">{product.title}</span>
             </nav>

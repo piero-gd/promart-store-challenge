@@ -1,14 +1,23 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { getProducts, getProductsByCategory } from '../api/products';
 import type { Product, Category } from '../types';
+import { CATEGORIES } from '../types';
 import ProductCard from '../components/ProductCard';
 import CategoryFilter from '../components/CategoryFilter';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 export default function HomePage() {
+  const [searchParams] = useSearchParams();
+  const initialCategory = (): Category => {
+    const param = searchParams.get('category');
+    const valid = CATEGORIES.map((c) => c.value);
+    return valid.includes(param as Category) ? (param as Category) : 'all';
+  };
+
   const [products, setProducts] = useState<Product[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<Category>('all');
+  const [selectedCategory, setSelectedCategory] = useState<Category>(initialCategory);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
